@@ -1,0 +1,22 @@
+.header {
+    background-color: #F2EDA280;
+    width: 100%;
+    .search {
+        button {
+            border-radius: 40px 0 0 40px !important;
+        }
+        input {
+            border-radius: 0 40px 40px 0;
+        }
+    }
+    .time {
+        font-family: "Orbitron", sans-serif;
+    }
+    .myprofile {
+        .photo-profile {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+        }
+    }
+}
