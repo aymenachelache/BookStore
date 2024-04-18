@@ -3,13 +3,16 @@ import './HomeBooks.scss';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/effect-cards';
+import { EffectCards } from 'swiper/modules';
+
 
 export default function HomeBooks() {
     const carouselRef = useRef();
     const [width, setWidth] = useState(0);
     useEffect(() => {
-        console.log(carouselRef.current.scrollWidth);
-        console.log(carouselRef.current.offsetWidth);
         setWidth(carouselRef.current.scrollWidth - carouselRef.current.offsetWidth);
     }, []);
     const quotes = [
@@ -30,28 +33,26 @@ export default function HomeBooks() {
             author: "Mahatma Gandhi"
         }
     ];
-    const [quote, setQuote] = useState(quotes[0]);
 
     return (
         <div className="homepage-books  px-8 py-3">
-            <div className="recent flex flex-col lg:flex-row gap-5">
+            <div className="recent flex flex-col items-center lg:flex-row gap-5">
                 <div className="quotes px-6 py-8 text-white rounded-xl">
-                    <motion.div className='flex flex-col justify-between h-full'
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 1 }}>
-                        <div>
-                            <p className='mb-3 font-bold'>Today’s Quote</p>
-                            <p>{quote.quote}</p>
-                            <div className='text-right'>- {quote.author}</div>
-                        </div>
-                        <div className="points flex gap-4">
-                            <span onClick={() => setQuote(quotes[0])} className="point one bg-white hover:bg-[#F2EDA2] block rounded w-2 h-2 cursor-pointer"></span>
-                            <span onClick={() => setQuote(quotes[1])} className="point two bg-white hover:bg-[#F2EDA2] block rounded w-2 h-2 cursor-pointer"></span>
-                            <span onClick={() => setQuote(quotes[2])} className="point three bg-white hover:bg-[#F2EDA2] block rounded w-2 h-2 cursor-pointer"></span>
-                            <span onClick={() => setQuote(quotes[3])} className="point four bg-white hover:bg-[#F2EDA2] block rounded w-2 h-2 cursor-pointer"></span>
-                        </div>
-                    </motion.div>
+                    <Swiper
+                        effect={'cards'}
+                        grabCursor={true}
+                        modules={[EffectCards]}
+                        className="mySwiper"
+                    >
+                        {quotes.map((el,key) =>
+                            <SwiperSlide key={key}>
+                                <motion.div className='flex flex-col justify-between h-full px-5 py-4'>
+                                    <p className='mb-3 font-bold'>Today’s Quote</p>
+                                    <p>{el.quote}</p>
+                                    <div className='text-right'>- {el.author}</div>
+                                </motion.div>
+                            </SwiperSlide>)}
+                    </Swiper>
                 </div>
                 <div className="new-arrivals">
                     <motion.div ref={carouselRef} className='carousel flex overflow-hidden rounded-xl bg-white pr-6'>
@@ -84,7 +85,7 @@ export default function HomeBooks() {
                             <span className='text-sm text-[#8A8A8A]'><Link to="#">Show All</Link></span>
                         </div>
                         <div className="books mt-5 mb-10">
-                            <section id="Projects" className="w-full md:w-fit mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 justify-items-center justify-center gap-y-5 gap-x-5">
+                            <section id="Projects" className="w-full md:w-fit mx-auto grid grid-cols-2  md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 justify-items-center justify-center gap-y-5 gap-x-5">
 
                                 <div className="w-full md:w-36 bg-white shadow-md rounded-lg duration-500 hover:scale-105 hover:shadow-xl">
                                     <a href="#">
@@ -196,7 +197,7 @@ export default function HomeBooks() {
                             <span className='text-sm text-[#8A8A8A]'><Link to="#">Show All</Link></span>
                         </div>
                         <div className="books mt-5 mb-10">
-                            <section id="Projects" className="w-full md:w-fit mx-auto grid grid-cols-1 sm:grid-cols-2md:grid-cols-4 lg:grid-cols-6 justify-items-center justify-center gap-y-5 gap-x-5">
+                            <section id="Projects" className="w-full md:w-fit mx-auto grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 justify-items-center justify-center gap-y-5 gap-x-5">
 
                                 <div className="w-full md:w-36 bg-white shadow-md rounded-lg duration-500 hover:scale-105 hover:shadow-xl">
                                     <a href="#">
